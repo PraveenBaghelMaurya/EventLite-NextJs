@@ -39,8 +39,8 @@ The frontend focuses on a clean UI, responsive design, real-time updates, and sm
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/eventlite-frontend.git
-cd eventlite-frontend
+git clone https://github.com/PraveenBaghelMaurya/EventLite-NextJs-Ticket-booking-platform.git
+cd EventLite-NextJs-Ticket-booking-platform/client
 ```
 
 ### 2️⃣ Install Dependencies
@@ -50,11 +50,10 @@ npm install
 
 ### 3️⃣ Set Up Environment Variables
 ```bash
-NEXT_PUBLIC_API_URL=http://localhost:5000
-NEXT_PUBLIC_SOCKET_URL=http://localhost:5000
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
 
 ### 4️⃣ Run the Development Server
-
+```
 npm run dev
+```
