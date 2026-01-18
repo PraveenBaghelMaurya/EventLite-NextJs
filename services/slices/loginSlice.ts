@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { ApiUser } from "../interface/user";
-import { login } from "../api/authentication"; 
+import { login } from "../api/authentication";
 
 //interface for slice state after login
 interface SliceState {
@@ -19,7 +19,7 @@ const initialState: SliceState = {
 const loginSlice = createSlice({
   name: "login",
   initialState,
-  reducers: {}, 
+  reducers: {},
 
   extraReducers: (builder) => {
     builder
@@ -33,7 +33,7 @@ const loginSlice = createSlice({
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload as string || "Something went wrong";
+        state.error = (action.payload as string) || "Something went wrong";
       });
   },
 });

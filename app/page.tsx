@@ -1,12 +1,12 @@
-import React from 'react'
-import Causel from '../components/customUI/caursel'
+import React from "react";
+import Causel from "../components/customUI/caursel";
 
 const Home = () => {
   return (
     <>
-        <Causel />
+      <Causel />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

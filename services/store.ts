@@ -6,6 +6,6 @@ export const store = configureStore({
     login: loginReducer,
   },
 });
-export type AppStore = ReturnType<typeof store.getState>
+export type AppStore = ReturnType<typeof store.getState>;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

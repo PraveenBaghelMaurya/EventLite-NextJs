@@ -10,21 +10,16 @@ import {
 
 export default function CarouselDemo() {
   return (
-    <Carousel
-      className="
-        relative w-full overflow-hidden
-        h-[35vh] sm:h-[45vh] lg:h-[60vh]
-      "
-    >
+    <Carousel className="relative h-[35vh] w-full overflow-hidden sm:h-[45vh] lg:h-[60vh]">
       {/* Prev Button */}
-      <CarouselPrevious className="realtive left-3 top-1/2 -translate-y-1/2 z-10 ml-6" />
+      <CarouselPrevious className="realtive top-1/2 left-3 z-10 ml-6 -translate-y-1/2" />
 
-      <CarouselContent className="realtive h-[45vh] sm:h-[45vh] lg:h-[60vh] m-6">
+      <CarouselContent className="realtive m-6 h-[45vh] sm:h-[45vh] lg:h-[60vh]">
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index} className="h-full">
             <Card className="h-full w-full">
               <CardContent className="flex h-full w-full items-center justify-center">
-                <span className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                <span className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
                   {index + 1}
                 </span>
               </CardContent>
@@ -34,7 +29,7 @@ export default function CarouselDemo() {
       </CarouselContent>
 
       {/* Next Button */}
-      <CarouselNext className="absolute right-3 top-1/2 -translate-y-1/2 z-10 mx-2 mr-2" />
+      <CarouselNext className="absolute top-1/2 right-3 z-10 mx-2 mr-2 -translate-y-1/2" />
     </Carousel>
   );
 }

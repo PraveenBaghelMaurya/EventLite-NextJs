@@ -33,14 +33,14 @@ export default function RootLayout({
         >
           {children}
           <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          pauseOnHover
-          theme="light"
-        />
+            position="top-right"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            pauseOnHover
+            theme="light"
+          />
         </body>
       </Providers>
     </html>

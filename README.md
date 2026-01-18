@@ -44,16 +44,19 @@ cd EventLite-NextJs-Ticket-booking-platform/client
 ```
 
 ### 2️⃣ Install Dependencies
+
 ```bash
 npm install
 ```
 
 ### 3️⃣ Set Up Environment Variables
+
 ```bash
 NEXT_PUBLIC_API_URL=http://localhost:8080
 ```
 
 ### 4️⃣ Run the Development Server
+
 ```
 npm run dev
 ```

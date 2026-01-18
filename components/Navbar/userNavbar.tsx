@@ -15,16 +15,15 @@ import {
 const userNavbar = () => {
   return (
     <>
-      <div className="flex flex-row items-center justify-between mx-2 my-1 border-2 sticky top-0 z-50 bg-white">
-        
+      <div className="sticky top-0 z-50 mx-2 my-1 flex flex-row items-center justify-between border-2 bg-white">
         {/* section-1 logo */}
-        <div className="flex-1 flex items-center gap-2 ">
+        <div className="flex flex-1 items-center gap-2">
           <img
             src="/eventLite_logo.svg"
             alt="eventlite_logo"
             className="h-10 w-auto rounded-xl"
           />
-          <span className="font-bold text-xl racking-tight text-sky-400">
+          <span className="racking-tight text-xl font-bold text-sky-400">
             ventLite
           </span>
         </div>
@@ -35,9 +34,9 @@ const userNavbar = () => {
         </div>
 
         {/* section-3 profile */}
-        <div className="flex-1 flex justify-end mx-2">
+        <div className="mx-2 flex flex-1 justify-end">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex items-center justify-center h-11 w-11 rounded-lg bg-sky-300 hover:bg-sky-400 outline-none border-2 border-sky-300 px-10">
+            <DropdownMenuTrigger className="flex h-11 w-11 items-center justify-center rounded-lg border-2 border-sky-300 bg-sky-300 px-10 outline-none hover:bg-sky-400">
               Profile
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -49,7 +48,6 @@ const userNavbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-
       </div>
     </>
   );

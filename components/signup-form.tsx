@@ -134,7 +134,7 @@ export function SignupForm({
                   onChange={(e) =>
                     setFormData({ ...formData, role: e.target.value })
                   }
-                  className="border rounded-md p-2"
+                  className="rounded-md border p-2"
                 >
                   <option value="USER">User</option>
                   <option value="ORGANIZER">Organizer</option>
@@ -161,7 +161,7 @@ export function SignupForm({
                     <button
                       type="button"
                       onClick={() => setShowPassword((p) => !p)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      className="text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2"
                       aria-label="Toggle password visibility"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -182,7 +182,7 @@ export function SignupForm({
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword((p) => !p)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                      className="text-muted-foreground absolute top-1/2 right-3 -translate-y-1/2"
                       aria-label="Toggle confirm password visibility"
                     >
                       {showConfirmPassword ? (
@@ -194,7 +194,7 @@ export function SignupForm({
                   </div>
 
                   {error && (
-                    <p className="text-xs text-red-500 mt-1">{error}</p>
+                    <p className="mt-1 text-xs text-red-500">{error}</p>
                   )}
                 </Field>
               </Field>

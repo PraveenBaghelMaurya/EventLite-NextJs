@@ -1,12 +1,8 @@
-'use client'
-import React from 'react'
+"use client";
+import React from "react";
 
 const page = () => {
-  return (
-    <div>
-    Organizer Dashboard
-    </div>
-  )
-}
+  return <div>Organizer Dashboard</div>;
+};
 
-export default page
+export default page;

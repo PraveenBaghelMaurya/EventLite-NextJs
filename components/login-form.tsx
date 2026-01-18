@@ -1,22 +1,20 @@
-"use client"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+"use client";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Field,
   FieldDescription,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import {login} from "@/services/api/authentication"
+import { login } from "@/services/api/authentication";
 import { useAppDispatch } from "@/hooks/use-mobile";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation"
-
-
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
@@ -25,36 +23,38 @@ export function LoginForm({
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
-  
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+  });
+
+  const dispatch = useAppDispatch();
+  const router = useRouter();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const response = dispatch(login(formData))
-   response.unwrap().then((res) => {
-    
-    const user=res?.data?.role
-    console.log("user",user)
-    if(res.success ){
-      toast.success("Login successful")
-      switch(user){
-        case "ADMIN":
-          router.push("/admin")
-          break;
-        case "ORGANIZER":
-          router.push("/organizer")
-          break;
-        case "USER":
-          router.push("/user")
-          break;
-      }
-    }
-  }).catch((error) => {
-    console.log(" login error", error)
-    toast.error(error)
-  })
-  }
+    e.preventDefault();
+    const response = dispatch(login(formData));
+    response
+      .unwrap()
+      .then((res) => {
+        const user = res?.data?.role;
+        console.log("user", user);
+        if (res.success) {
+          toast.success("Login successful");
+          switch (user) {
+            case "ADMIN":
+              router.push("/admin");
+              break;
+            case "ORGANIZER":
+              router.push("/organizer");
+              break;
+            case "USER":
+              router.push("/user");
+              break;
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(" login error", error);
+        toast.error(error);
+      });
+  };
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="overflow-hidden p-0">
@@ -74,7 +74,9 @@ export function LoginForm({
                   type="email"
                   placeholder="john@example.com"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   required
                 />
               </Field>
@@ -93,7 +95,9 @@ export function LoginForm({
                   type="password"
                   placeholder="••••••••"
                   value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, password: e.target.value })
+                  }
                   required
                 />
               </Field>
@@ -104,7 +108,6 @@ export function LoginForm({
                 Or continue with
               </FieldSeparator>
               <Field className="grid grid-cols-1 gap-4">
-
                 <Button variant="outline" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <path
@@ -112,11 +115,16 @@ export function LoginForm({
                       fill="currentColor"
                     />
                   </svg>
-                  <span className="sr-only font-black-bold">Login with Google</span>
+                  <span className="font-black-bold sr-only">
+                    Login with Google
+                  </span>
                 </Button>
               </Field>
               <FieldDescription className="text-center">
-                Don&apos;t have an account? <a href="/signup" className="font-bold">Sign up</a>
+                Don&apos;t have an account?{" "}
+                <a href="/signup" className="font-bold">
+                  Sign up
+                </a>
               </FieldDescription>
             </FieldGroup>
           </form>
@@ -127,5 +135,5 @@ export function LoginForm({
         and <a href="#">Privacy Policy</a>.
       </FieldDescription>
     </div>
-  )
+  );
 }
