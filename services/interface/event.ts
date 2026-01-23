@@ -123,3 +123,14 @@ export interface EventById {
     message: string;
     data: singleEvent;
 }
+
+export interface getUpcomingEventsRequest{
+  page: number;
+  limit: number;
+}
+
+export interface getUpcomingEventsResponse{
+  success: boolean;
+  message: string;
+  data: singleEvent[];
+}

@@ -3,7 +3,9 @@ import CarouselDemo from "@/components/customUI/caursel";
 import CarouselSpacing from "@/components/customUI/multicaursel";
 import CircularCarousel from "@/components/customUI/circularcaursel";
 import Footer from "@/components/Footer/Footer";
+
 const UserDashboardpage = () => {
+
   return (
     <>
       {/* stories */}
@@ -16,7 +18,7 @@ const UserDashboardpage = () => {
               View All
             </h1>
           </div>
-          <CarouselSpacing />
+          <CarouselSpacing/>
         </div>
 
         {/* feature events */}

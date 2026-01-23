@@ -1,6 +1,6 @@
 import { axiosInstance as axios } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { ApiEvent, EventFilters,EventById } from "../interface/event";
+import { ApiEvent, EventFilters,EventById, getUpcomingEventsRequest, getUpcomingEventsResponse } from "../interface/event";
 
 
 export const filterEvents = createAsyncThunk<
@@ -34,12 +34,34 @@ export const filterEvents = createAsyncThunk<
   }
 )
 
-export const getEventById = async(eventId:number)=>{
-  try{
-    const response : EventById = await axios.get(`/event/get-event/${eventId}`)
-    console.log("event Data",response.data)
-    return response.data as EventById
-  }catch(error:any){
-    throw error
+export const getUpcomingEvents = createAsyncThunk<
+getUpcomingEventsResponse,getUpcomingEventsRequest,{rejectValue:string}
+>(
+  "event/get-upcoming-events",
+  async (filters, { rejectWithValue }) => {
+    try {
+      const params = new URLSearchParams()
+      if (filters.page) params.append("page", String(filters.page))
+      if (filters.limit) params.append("limit", String(filters.limit))
+      const response = await axios.get(
+        `/event/upcoming-events?${params.toString()}`
+      )
+
+      return response.data
+    } catch (error: any) {
+     return rejectWithValue(
+        error?.response?.data?.message || "Failed to fetch events"
+      );
+    }
   }
-}
+)
+
+// export const getEventById = async(eventId:number)=>{
+//   try{
+//     const response : EventById = await axios.get(`/event/get-event/${eventId}`)
+//     console.log("event Data",response.data)
+//     return response.data as EventById
+//   }catch(error:any){
+//     throw error
+//   }
+// }
