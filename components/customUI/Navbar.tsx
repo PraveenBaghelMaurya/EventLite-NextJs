@@ -62,7 +62,7 @@ export default function NavigationMenuDemo() {
       <NavigationMenuList className="flex-wrap">
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/" className="bg-white">
+            <Link href="/user" className="bg-white">
               Home
             </Link>
           </NavigationMenuLink>

@@ -125,6 +125,10 @@ export function LoginForm({
                 <a href="/signup" className="font-bold">
                   Sign up
                 </a>
+                <span className="ml-2">or Continue as a</span>
+                <a href="/user" className="font-bold ml-2">
+                   Guest
+                </a>
               </FieldDescription>
             </FieldGroup>
           </form>

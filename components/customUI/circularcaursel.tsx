@@ -1,3 +1,4 @@
+'use client'
 import * as React from "react";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,18 +10,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-export default function CarouselSpacing() {
+export default function CircularCarousel() {
   return (
-    <Carousel className="realtive w-full">
-      <CarouselContent className="-ml-1">
-        {Array.from({ length: 10 }).map((_, index) => (
+    <Carousel className="realtive w-full ">
+      <CarouselContent className="ml-20">
+        {Array.from({ length: 20 }).map((_, index) => (
           <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/5">
             <div className="p-1">
-              <Card className="h-[70%] shadow-neutral-200">
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-2xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
+            <Card className="w-32 h-32 rounded-full shadow-lg flex items-center justify-center">
+              <CardContent className="p-0 flex items-center justify-center">
+                <span className="text-2xl font-semibold">
+                  {index + 1}
+                </span>
+              </CardContent>
+            </Card>
             </div>
           </CarouselItem>
         ))}

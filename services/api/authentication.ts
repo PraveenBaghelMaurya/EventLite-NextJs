@@ -1,6 +1,7 @@
 import { axiosInstance as axios } from "@/lib/axios";
 import type { signup, Login, ApiUser } from "../interface/user";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 export const register = async (data: signup) => {
   try {
@@ -28,3 +29,29 @@ export const login = createAsyncThunk<ApiUser, Login, { rejectValue: string }>(
     }
   }
 );
+
+interface LogoutResponse {
+  success: boolean;
+  message: string;
+}
+
+export const logout = async () => {
+  try {
+    const token = localStorage.getItem("token");
+    if(!token){
+      return toast.error("Guest can't Sign Out");
+    }
+    const response = await axios.post("/user/sign-out", {}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if(response.data.success === true){
+      localStorage.removeItem("token");
+    }
+    return response.data;
+  } catch (error:any) {
+    console.log("API logout error", error);
+    return error;
+  }
+}

@@ -1,7 +1,9 @@
 import React from "react";
 import CarouselDemo from "@/components/customUI/caursel";
 import CarouselSpacing from "@/components/customUI/multicaursel";
-const Dashboardpage = () => {
+import CircularCarousel from "@/components/customUI/circularcaursel";
+import Footer from "@/components/Footer/Footer";
+const UserDashboardpage = () => {
   return (
     <>
       <div className="overflow-hidden font-extralight">
@@ -26,8 +28,24 @@ const Dashboardpage = () => {
           <CarouselSpacing />
         </div>
       </div>
+
+      <div className="mx-4 mt-10 w-full font-sans">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl">Popular Events</h1>
+          <h1 className="mx-12 cursor-pointer text-2xl hover:font-light">
+            View All
+          </h1> 
+        </div>
+        <CircularCarousel />
+      </div>
+
+      <div className="mx-4 mt-10 w-full font-sans">
+        <div className="mx-4 mt-10 w-full font-sans">
+          <Footer />
+        </div>
+      </div>
     </>
   );
 };
 
-export default Dashboardpage;
+export default UserDashboardpage;

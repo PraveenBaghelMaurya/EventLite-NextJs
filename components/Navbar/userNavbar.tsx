@@ -11,8 +11,34 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logout } from "@/services/api/authentication";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const userNavbar = () => {
+  const router = useRouter();
+  const [token, setToken] = React.useState<string | null>(null);
+
+useEffect(() => {
+  const tokenValue=localStorage.getItem("token");
+  setToken(tokenValue);
+  if (!tokenValue) {
+    router.push("/");
+  }
+}, []);
+
+  const handleSignOut = () => {
+    const response = logout();
+    response.then((res) => {
+      console.log("response",res);
+      if(res.success === true){
+        toast.success(res.message);
+        router.push("/");
+      }
+    });
+    
+  };
   return (
     <>
       <div className="sticky top-0 z-50 mx-2 my-1 flex flex-row items-center justify-between border-2 bg-white">
@@ -44,7 +70,11 @@ const userNavbar = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem>Edit Profile</DropdownMenuItem>
               <DropdownMenuItem>Booked Shows</DropdownMenuItem>
-              <DropdownMenuItem>Sign Out</DropdownMenuItem>
+              {token ? (
+                <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
+              ) : (
+                <DropdownMenuItem onClick={() => router.push("/")}>Sign In</DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
