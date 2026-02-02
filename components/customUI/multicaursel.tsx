@@ -8,6 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import Link from "next/link";
 import { Calendar, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -34,11 +35,12 @@ export default function CarouselSpacing({ event = [] }: { event?: any[] }) {
       className="relative w-full"
     >
       <CarouselContent className="-ml-2 md:-ml-4">
-        {event.map((item, index) => (
+        {event.map((item, index) => (     
           <CarouselItem
             key={item.id ?? index}
             className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/5"
           >
+            <Link href={`/user/event/${item.id}`} key={item.id}>
             <div className="group relative h-full overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
               {/* Image Section */}
               <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-100">
@@ -93,6 +95,7 @@ export default function CarouselSpacing({ event = [] }: { event?: any[] }) {
                 </div>
               </div>
             </div>
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>

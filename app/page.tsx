@@ -1,5 +1,6 @@
 "use client";
 import { LoginForm } from "@/components/login-form";
+import { redirect } from "next/navigation";
 
 export default function LoginPage() {
   return (

@@ -18,37 +18,37 @@ import {
 const components: { title: string; href: string; description: string }[] = [
   {
     title: "Science and Technology",
-    href: "/docs/primitives/alert-dialog",
+    href: "/user/science-and-technology",
     description:
       "The latest in science and technology, including AI, robotics, and biotechnology.",
   },
   {
     title: "Entertainment",
-    href: "/docs/primitives/hover-card",
+    href: "/user/entertainment",
     description:
       "The latest in entertainment, including movies, music, and sports.",
   },
   {
     title: "Business",
-    href: "/docs/primitives/progress",
+    href: "/user/business",
     description:
       " The latest in business, including finance, marketing, and management.",
   },
   {
     title: "Health and Wellness",
-    href: "/docs/primitives/scroll-area",
+    href: "/user/health-and-wellness",
     description:
       "The latest in health and wellness, including fitness, nutrition, and mental health.",
   },
   {
     title: "Travel",
-    href: "/docs/primitives/tabs",
+    href: "/user/travel",
     description:
       "The latest in travel, including destinations, transportation, and activities.",
   },
   {
     title: "Education",
-    href: "/docs/primitives/tooltip",
+    href: "/user/education",
     description:
       "The latest in education, including online courses, learning resources, and career development.",
   },

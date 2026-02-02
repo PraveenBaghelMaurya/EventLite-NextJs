@@ -1,43 +1,27 @@
-"use client";
-import { useState } from "react";
 import CarouselDemo from "@/components/customUI/caursel";
 import CarouselSpacing from "@/components/customUI/multicaursel";
 import CircularCarousel from "@/components/customUI/circularcarousel";
 import Footer from "@/components/Footer/Footer";
-import { useAppDispatch } from "@/hooks/use-mobile";
-import { useEffect } from "react";
-import { getUpcomingEvents } from "@/services/api/event";
-import { singleEvent } from "@/services/interface/event";
-import { getPastPopularEvents } from "@/services/api/event";
-import { getOrganizers } from "@/services/api/organizer";
-import { getOrganizerResponse } from "@/services/interface/event";
 
-const UserDashboardpage = () => {
-  const [upcomingEvents, setUpcomingEvents] = useState<singleEvent[]>([]);
-  const [pastPopularEvents, setPastPopularEvents] = useState<singleEvent[]>([]);
-  const [organizers, setOrganizers] = useState<getOrganizerResponse[]>([]);
-  const disptach = useAppDispatch();
+import { fetchUpcomingEvents, fetchPastPopularEvents } from "@/services/api/event";
+import { fetchOrganizers } from "@/services/api/organizer";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
-  useEffect(() => {
-    disptach(getUpcomingEvents({ page: 1, limit: 10 }))
-      .unwrap()
-      .then((res: any) => {
-        console.log("upcomingEvents", res);
-        setUpcomingEvents(res.data.events);
-      });
-    disptach(getPastPopularEvents({ page: 1, limit: 10 }))
-      .unwrap()
-      .then((res: any) => {
-        console.log("pastPopularEvents", res);
-        setPastPopularEvents(res.data.events);
-      });
-    disptach(getOrganizers({ page: 1, limit: 10 }))
-      .unwrap()
-      .then((res: any) => {
-        console.log("organizers", res);
-        setOrganizers(res.data);
-      });
-  }, []);
+const UserDashboardpage = async () => {
+
+  // ✅ SERVER-SIDE fetching
+  const [upcomingRes, pastPopularRes, organizersRes] = await Promise.all([
+    fetchUpcomingEvents({ page: 1, limit: 10 }),
+    fetchPastPopularEvents({ page: 1, limit: 10 }),
+    fetchOrganizers({ page: 1, limit: 10 }),
+  ]);
+
+  const upcomingEvents = upcomingRes.data.events;
+  const pastPopularEvents = pastPopularRes.data.events;
+  const organizers = organizersRes.data.organizers;
+
+
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-50/50">
@@ -50,12 +34,12 @@ const UserDashboardpage = () => {
         {/* Featured Events */}
         <section>
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+            <h2 className="text-2xl font-bold md:text-3xl">
               Featured Events
             </h2>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
+            <Link href="/user/main_event/featured" className="text-primary text-sm font-medium">
               View All
-            </button>
+            </Link>
           </div>
           <CarouselSpacing />
         </section>
@@ -63,12 +47,12 @@ const UserDashboardpage = () => {
         {/* Upcoming Events */}
         <section>
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+            <h2 className="text-2xl font-bold md:text-3xl">
               Upcoming Events
             </h2>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
+            <Link href="/user/main_event/upcoming" className="text-primary text-sm font-medium">
               View All
-            </button>
+            </Link>
           </div>
           <CarouselSpacing event={upcomingEvents} />
         </section>
@@ -76,23 +60,24 @@ const UserDashboardpage = () => {
         {/* Past Popular Events */}
         <section>
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+            <h2 className="text-2xl font-bold md:text-3xl">
               Past Popular Events
             </h2>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
+            <Link href="/user/main_event/past" className="text-primary text-sm font-medium">
               View All
-            </button>
+            </Link>
+            
           </div>
           <CarouselSpacing event={pastPopularEvents} />
         </section>
 
-        {/* Our Best Organizers */}
+        {/* Organizers */}
         <section>
           <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 md:text-3xl">
+            <h2 className="text-2xl font-bold md:text-3xl">
               Our Best Organizers
             </h2>
-            <button className="text-primary hover:text-primary/80 text-sm font-medium transition-colors">
+            <button className="text-primary text-sm font-medium">
               View All
             </button>
           </div>
@@ -100,7 +85,6 @@ const UserDashboardpage = () => {
         </section>
       </main>
 
-      {/* Footer */}
       <Footer organizers={organizers} />
     </div>
   );
