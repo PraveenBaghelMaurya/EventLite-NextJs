@@ -89,7 +89,7 @@ export default function NavigationMenuDemo() {
 
         <NavigationMenuItem>
           <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-            <Link href="/contact" className="bg-white">
+            <Link href="/user/contact" className="bg-white">
               Contact
             </Link>
           </NavigationMenuLink>
@@ -103,19 +103,19 @@ export default function NavigationMenuDemo() {
             <ul className="grid w-[300px] gap-4">
               <li>
                 <NavigationMenuLink asChild>
-                  <Link href="#">
+                  <Link href="/user/terms-and-conditions">
                     <div className="font-medium">Terms and Conditions</div>
                     <div className="text-muted-foreground">Booking policy</div>
                   </Link>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <Link href="#">
+                  <Link href="/user/RefundPolicy">
                     <div className="font-medium">Refund Policy</div>
                     <div className="text-muted-foreground">Refund policy</div>
                   </Link>
                 </NavigationMenuLink>
                 <NavigationMenuLink asChild>
-                  <Link href="#">
+                  <Link href="/user/privacy-policy">
                     <div className="font-medium">Privacy Policy</div>
                     <div className="text-muted-foreground">Privacy policy</div>
                   </Link>
