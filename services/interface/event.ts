@@ -68,11 +68,11 @@ export interface Event {
   createdAt: string
   updatedAt: string
   publishedAt: string | null
-  category : Category
-  organizer : Organizer
-  ticketStatistics : ticketStatistics
-  _count : ticketStatistics
-  pagination : Pagination
+  category: Category
+  organizer: Organizer
+  ticketStatistics: ticketStatistics
+  _count: ticketStatistics
+  pagination: Pagination
 }
 
 export interface singleEvent {
@@ -104,8 +104,8 @@ export interface singleEvent {
   createdAt: string
   updatedAt: string
   publishedAt: string | null
-  category : Category
-  organizer : Organizer
+  category: Category
+  organizer: Organizer
 }
 export interface ApiEvent {
   success: boolean;
@@ -113,24 +113,60 @@ export interface ApiEvent {
   data: Event[];
 }
 
-export interface ApiErrorResponse{
-    message: string;
-    status: number;
+export interface ApiOrganizer {
+  success: boolean;
+  message: string;
+  data: any;
+}
+
+export interface ApiErrorResponse {
+  message: string;
+  status: number;
 }
 
 export interface EventById {
-    success: boolean;
-    message: string;
-    data: singleEvent;
+  success: boolean;
+  message: string;
+  data: singleEvent;
 }
 
-export interface getUpcomingEventsRequest{
+export interface getUpcomingEventsRequest {
   page: number;
   limit: number;
 }
 
-export interface getUpcomingEventsResponse{
+export interface getPastPopularEventsRequest {
+  page: number;
+  limit: number;
+}
+
+export interface getUpcomingEventsResponse {
   success: boolean;
   message: string;
-  data: singleEvent[];
+  data: {
+    events: singleEvent[];
+    totalEvents: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
+export interface getPastPopularEventsResponse {
+  success: boolean;
+  message: string;
+  data: {
+    events: singleEvent[];
+    totalEvents: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
+
+export interface getOrganizerResponse{
+  id:number;
+  name:string;
+  avatar:string;
 }

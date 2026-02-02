@@ -20,65 +20,78 @@ const userNavbar = () => {
   const router = useRouter();
   const [token, setToken] = React.useState<string | null>(null);
 
-useEffect(() => {
-  const tokenValue=localStorage.getItem("token");
-  setToken(tokenValue);
-  if (!tokenValue) {
-    router.push("/");
-  }
-}, []);
+  useEffect(() => {
+    const tokenValue = localStorage.getItem("token");
+    setToken(tokenValue);
+    if (!tokenValue) {
+      router.push("/");
+    }
+  }, []);
 
   const handleSignOut = () => {
     const response = logout();
     response.then((res) => {
-      console.log("response",res);
-      if(res.success === true){
+      console.log("response", res);
+      if (res.success === true) {
         toast.success(res.message);
         router.push("/");
       }
     });
-    
   };
   return (
     <>
-      <div className="sticky top-0 z-50 mx-2 my-1 flex flex-row items-center justify-between border-2 bg-white">
-        {/* section-1 logo */}
-        <div className="flex flex-1 items-center gap-2">
-          <img
-            src="/eventLite_logo.svg"
-            alt="eventlite_logo"
-            className="h-10 w-auto rounded-xl"
-          />
-          <span className="racking-tight text-xl font-bold text-sky-400">
-            ventLite
-          </span>
-        </div>
+      <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="container mx-auto flex h-16 items-center px-4 sm:px-6 lg:px-8">
+          {/* section-1 logo */}
+          <Link href="/user" className="mr-8 flex items-center gap-2 lg:mr-6">
+            <img
+              src="/eventLite_logo.svg"
+              alt="eventlite_logo"
+              className="h-8 w-auto rounded-lg sm:h-10"
+            />
+            <span className="hidden text-xl font-bold tracking-tight text-sky-400 sm:inline-block">
+              EventLite
+            </span>
+            <span className="text-xl font-bold tracking-tight text-sky-400 sm:hidden">
+              EL
+            </span>
+          </Link>
 
-        {/* section-2 navbar */}
-        <div className="flex-1">
-          <Navbar />
-        </div>
+          {/* section-2 navbar */}
+          <div className="flex flex-1 items-center justify-center">
+            <Navbar />
+          </div>
 
-        {/* section-3 profile */}
-        <div className="mx-2 flex flex-1 justify-end">
-          <DropdownMenu>
-            <DropdownMenuTrigger className="flex h-11 w-11 items-center justify-center rounded-lg border-2 border-sky-300 bg-sky-300 px-10 outline-none hover:bg-sky-400">
-              Profile
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Edit Profile</DropdownMenuItem>
-              <DropdownMenuItem>Booked Shows</DropdownMenuItem>
-              {token ? (
-                <DropdownMenuItem onClick={handleSignOut}>Sign Out</DropdownMenuItem>
-              ) : (
-                <DropdownMenuItem onClick={() => router.push("/")}>Sign In</DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* section-3 profile */}
+          <div className="flex items-center justify-end gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="border-sky-300 bg-sky-300 hover:bg-sky-400 hover:text-white"
+                >
+                  Profile
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Edit Profile</DropdownMenuItem>
+                <DropdownMenuItem>Booked Shows</DropdownMenuItem>
+                {token ? (
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    Sign Out
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem onClick={() => router.push("/")}>
+                    Sign In
+                  </DropdownMenuItem>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-      </div>
+      </header>
     </>
   );
 };

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { singleEvent } from "../interface/event";
-import { getUpcomingEvents } from "../api/event";
+import { getPastPopularEvents } from "../api/event";
 
 interface SliceState {
     data: singleEvent[];
@@ -14,24 +14,24 @@ const initialState: SliceState = {
     error: "",
 }
 
-const getUpcomingEventsSlice = createSlice({
-    name: "getUpcomingEvents",
+const getPastPopularEventsSlice = createSlice({
+    name: "getPastPopularEvents",
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getUpcomingEvents.pending, (state) => {
+        builder.addCase(getPastPopularEvents.pending, (state) => {
             state.loading = true;
             state.error = "";
         })
-        builder.addCase(getUpcomingEvents.fulfilled, (state, action) => {
+        builder.addCase(getPastPopularEvents.fulfilled, (state, action) => {
             state.loading = false;
             state.data = action.payload.data.events;
         })
-        builder.addCase(getUpcomingEvents.rejected, (state, action) => {
+        builder.addCase(getPastPopularEvents.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload || "Failed to fetch events";
         })
     },
 })
 
-export default getUpcomingEventsSlice.reducer
+export default getPastPopularEventsSlice.reducer
