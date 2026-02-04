@@ -1,3 +1,5 @@
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import ProtectedRoute from "@/services/Middleware/ProtectedRoute";
 
 export default function OrganizerLayout({
@@ -7,7 +9,13 @@ export default function OrganizerLayout({
 }) {
   return (
     <ProtectedRoute allowedRoles={["ORGANIZER","ADMIN"]}>
-      {children}
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        {children}
+      </main>
+    </SidebarProvider>
     </ProtectedRoute>
   );
 }

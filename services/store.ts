@@ -3,6 +3,7 @@ import loginReducer from "./slices/loginSlice";
 import getUpcomingEventsSlice from "./slices/getUpcomingEventsSlice";
 import getPastPopularEventsSlice from "./slices/getPastPopularEvents";
 import getOrganizerSlice from "./slices/getOrganizer";
+import { useDispatch } from "react-redux"
 
 export const store = configureStore({
   reducer: {
@@ -15,3 +16,4 @@ export const store = configureStore({
 export type AppStore = ReturnType<typeof store.getState>;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export const useAppDispatch = () => useDispatch<AppDispatch>()

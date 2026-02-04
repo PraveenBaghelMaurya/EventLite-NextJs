@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { login } from "@/services/api/authentication";
-import { useAppDispatch } from "@/hooks/use-mobile";
+import { useAppDispatch } from "@/services/store";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
