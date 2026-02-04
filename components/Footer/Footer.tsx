@@ -1,8 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { getOrganizerResponse } from "@/services/interface/event";
-import { LinkedinIcon,GithubIcon,InstagramIcon } from "lucide-react";
-
+import { LinkedinIcon, GithubIcon, InstagramIcon } from "lucide-react";
 
 const Footer = ({ organizers }: { organizers: getOrganizerResponse[] }) => {
   return (
@@ -29,7 +28,20 @@ const Footer = ({ organizers }: { organizers: getOrganizerResponse[] }) => {
             <ul className="space-y-2 text-sm text-gray-600">
               <li>Delhi, India</li>
               <li>email@example.com</li>
-              <li className="">Follow us on <span className="flex items-center mt-2"><span className="text-blue-600 size-10"><LinkedinIcon /></span> <span className="text-gray-600 size-10"><GithubIcon /></span><span className="text-pink-600 size-10"><InstagramIcon /></span></span></li>
+              <li className="">
+                Follow us on{" "}
+                <span className="mt-2 flex items-center">
+                  <span className="size-10 text-blue-600">
+                    <a href="https://www.linkedin.com/in/praveen-kumar-847808208/" target="_blank"><LinkedinIcon /></a>
+                  </span>{" "}
+                  <span className="size-10 text-gray-600">
+                    <a href="https://github.com/PraveenBaghelMaurya" target="_blank"><GithubIcon /></a>
+                  </span>
+                  <span className="size-10 text-pink-600">
+                    <a href="https://www.instagram.com/praveen__baghel/" target="_blank"><InstagramIcon /></a>
+                  </span>
+                </span>
+              </li>
             </ul>
           </div>
 
