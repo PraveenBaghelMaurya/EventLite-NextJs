@@ -1,7 +1,17 @@
 import { axiosInstance as axios } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiEvent, EventFilters,EventById, getUpcomingEventsRequest, getUpcomingEventsResponse,getPastPopularEventsRequest,getPastPopularEventsResponse } from "../interface/event";
+const token = localStorage.getItem("token")
 
+
+export const createEvent = async (eventData: any) => {
+  try{
+    const response = await axios.post("/event/create-event",eventData,{headers:{"Authorization":`Bearer ${token}`}})
+    return response.data
+  }catch(error:any){
+    throw error
+  }
+}
 
 export const fetchFilteredEvents = async (filters: EventFilters) => {
   const params = new URLSearchParams()
@@ -46,6 +56,7 @@ export const fetchUpcomingEvents = async (filters: getUpcomingEventsRequest) => 
     const response = await axios.get(
     `/event/upcoming-events?${params.toString()}`
   )
+  console.log("fetchUpcomingEvents aa gaya",response.data)
 
   return response.data
 }
@@ -57,6 +68,7 @@ export const getUpcomingEvents = createAsyncThunk<
   async (filters, { rejectWithValue }) => {
     try {
       return await fetchUpcomingEvents(filters)
+      console.log("getUpcomingEvents aa gaya")
     } catch (error: any) {
       return rejectWithValue(
         error?.response?.data?.message || "Failed to fetch events"
@@ -73,6 +85,7 @@ export const fetchPastPopularEvents = async (filters: getPastPopularEventsReques
     const response = await axios.get(
     `/event/past-popular-events?${params.toString()}`
   )
+  console.log("fetchPastPopularEvents aa gaya",response.data)
 
   return response.data
 }
