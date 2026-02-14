@@ -38,20 +38,51 @@ interface LogoutResponse {
 export const logout = async () => {
   try {
     const token = localStorage.getItem("token");
-    if(!token){
+    if (!token) {
       return toast.error("Guest can't Sign Out");
     }
-    const response = await axios.post("/user/sign-out", {}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    if(response.data.success === true){
+    const response = await axios.post(
+      "/user/sign-out",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (response.data.success === true) {
       localStorage.removeItem("token");
     }
     return response.data;
-  } catch (error:any) {
+  } catch (error: any) {
     console.log("API logout error", error);
     return error;
   }
-}
+};
+
+export const refreshToken = async () => {
+  try {
+    console.log("refreshToken Api is calling");
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return toast.error("Guest can't Sign Out");
+    }
+    const response = await axios.post(
+      "/user/refresh-access-token",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        withCredentials: true,
+      }
+    );
+    if (response.data.success === true) {
+      localStorage.setItem("token", response.data.data.accessToken);
+    }
+    return response.data;
+  } catch (error: any) {
+    console.log("API logout error", error);
+    return error;
+  }
+};
