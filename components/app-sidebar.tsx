@@ -198,6 +198,12 @@ const sidebarData = {
       title: "Create Event",
       url: "/organizer/events/create",
       icon: Bot,
+      items: [
+        {
+          title: "Create Event",
+          url: "/organizer/new-event",
+        },
+      ],
     },
     {
       title: "Ticket Management",

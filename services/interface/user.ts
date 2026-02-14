@@ -29,3 +29,10 @@ export interface ApiUser {
   message: string;
   data: user;
 }
+
+export interface TokenUser {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+}

@@ -22,17 +22,9 @@ import { useRouter } from "next/navigation";
 import { createEvent } from "@/services/api/event";
 import { eventSchema } from "@/services/validation/event";
 import { toast } from "react-toastify";
+import { CATEGORIES } from "@/services/utils/eventCategories";
 
 type EventFormValues = z.infer<typeof eventSchema>;
-
-const CATEGORIES = [
-  { label: "Health & Wellness", value: "health-and-wellness" },
-  { label: "Science & Technology", value: "science-and-technology" },
-  { label: "Business", value: "business" },
-  { label: "Entertainment", value: "entertainment" },
-  { label: "Education", value: "education" },
-  { label: "Travel", value: "travel" },
-];
 
 const formatDate = (dateString: string) => {
   if (!dateString) return "Date";
@@ -46,6 +38,7 @@ const formatDate = (dateString: string) => {
 export default function CreateEventPage() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [imageFile, setImageFile] = React.useState<File | null>(null);
 
   const defaultValues: Partial<EventFormValues> = {
     title: "",
@@ -80,24 +73,71 @@ export default function CreateEventPage() {
   async function onSubmit(data: any) {
     const values = data as EventFormValues;
     setIsSubmitting(true);
-    console.log("Submitting Event Data:", data);
+
+    // Find the selected category to get its description
+    const selectedCategory = CATEGORIES.find(
+      (c) => c.value === values.categoryName
+    );
+
+    // Transform date strings to ISO strings
+    const startDateISO = values.startDate
+      ? new Date(values.startDate).toISOString()
+      : new Date().toISOString();
+    const endDateISO = values.endDate
+      ? new Date(values.endDate).toISOString()
+      : new Date().toISOString();
+    const doorTimeISO = values.doorTime
+      ? new Date(values.doorTime).toISOString()
+      : undefined;
+
+    // Construct the payload structure expected by the backend
+    const payloadEvent = {
+      title: values.title,
+      description: values.description,
+      shortDescription: values.shortDescription,
+      venue: values.venue,
+      street: values.street,
+      city: values.city,
+      state: values.state,
+      country: values.country,
+      postalCode: values.postalCode,
+      startDate: startDateISO,
+      endDate: endDateISO,
+      doorTime: doorTimeISO,
+      price: Number(values.price),
+      capacity: Number(values.capacity),
+      availableTickets: Number(values.availableTickets),
+      status: values.status,
+      isFeatured: values.isFeatured,
+      isPublic: values.isPublic,
+      image: values.imageUrl,
+    };
+
+    const payloadCategory = {
+      name: values.categoryName,
+      description: selectedCategory?.description || "General category",
+    };
+
+    const formData = new FormData();
+    formData.append("event", JSON.stringify(payloadEvent));
+    formData.append("category", JSON.stringify(payloadCategory));
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
 
     try {
-      const response = await createEvent(data);
+      const response = await createEvent(formData);
       console.log("Event Created Successfully", response);
       if (response.success) {
         toast.success("Event created successfully");
-        router.push("/organizer/dashboard");
+        router.push("/organizer/events");
       }
     } catch (error: any) {
       console.error("Failed to create event", error);
+      toast.error(error.response?.data?.message || "Failed to create event");
+    } finally {
+      setIsSubmitting(false);
     }
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    setIsSubmitting(false);
-    alert("Event Created Successfully (Simulated)");
-    // router.push("/organizer/dashboard")
   }
 
   return (
@@ -171,6 +211,31 @@ export default function CreateEventPage() {
                   {form.formState.errors.description && (
                     <p className="text-sm text-red-500">
                       {form.formState.errors.description.message}
+                    </p>
+                  )}
+                </div>
+
+                <div>
+                  <Label htmlFor="imageUrl">Event Image</Label>
+                  <Input
+                    id="imageUrl"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const url = URL.createObjectURL(file);
+                        form.setValue("imageUrl", url);
+                        setImageFile(file);
+                      }
+                    }}
+                    className={
+                      form.formState.errors.imageUrl ? "border-red-500" : ""
+                    }
+                  />
+                  {form.formState.errors.imageUrl && (
+                    <p className="text-sm text-red-500">
+                      {form.formState.errors.imageUrl.message}
                     </p>
                   )}
                 </div>
