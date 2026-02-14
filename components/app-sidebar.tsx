@@ -1,5 +1,5 @@
-"use client"
-import * as React from "react"
+"use client";
+import * as React from "react";
 import {
   AudioWaveform,
   BookOpen,
@@ -11,24 +11,22 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-} from "lucide-react"
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { toast } from "react-toastify"
-import { useRouter } from "next/navigation"
-
-
-
+} from "@/components/ui/sidebar";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 // This is sample data.
 // const data = {
@@ -160,13 +158,8 @@ import { useRouter } from "next/navigation"
 //   ],
 // }
 // Organizer Dummy Data
-const data = {
-  user: {
-    name: "Praveen Organizer",
-    email: "organizer@eventlite.app",
-    avatar: "/avatars/shadcn.jpg",
-  },
 
+const sidebarData = {
   teams: [
     {
       name: "EventLite Org",
@@ -260,10 +253,26 @@ const data = {
       icon: PieChart,
     },
   ],
-}
-
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [user, setUser] = React.useState<any>(null);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      setUser(jwt.decode(token));
+    }
+  }, []);
+
+  const data = {
+    ...sidebarData,
+    user: {
+      name: user?.name || "Eventlite",
+      email: user?.email || "organizer@eventlite.app",
+      avatar: user?.avatar || "/avatars/shadcn.jpg",
+    },
+  };
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -278,5 +287,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
