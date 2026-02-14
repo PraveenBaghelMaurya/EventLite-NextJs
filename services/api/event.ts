@@ -1,15 +1,18 @@
 import { axiosInstance as axios } from "@/lib/axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ApiEvent, EventFilters,EventById, getUpcomingEventsRequest, getUpcomingEventsResponse,getPastPopularEventsRequest,getPastPopularEventsResponse } from "../interface/event";
-const token = localStorage.getItem("token")
-
-
 export const createEvent = async (eventData: any) => {
-  try{
-    const response = await axios.post("/event/create-event",eventData,{headers:{"Authorization":`Bearer ${token}`}})
-    return response.data
-  }catch(error:any){
-    throw error
+  try {
+    const token = localStorage.getItem("token");
+    console.log("create Event Token 1: ", token);
+    
+    const response = await axios.post("/event/create-event", eventData, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    console.log("create Event Token 2: ", token);
+    return response.data;
+  } catch (error: any) {
+    throw error;
   }
 }
 

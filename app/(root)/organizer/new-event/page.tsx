@@ -458,7 +458,7 @@ export default function CreateEventPage() {
 
             {/* Card Preview Structure matching User Category Page */}
             <div className="group relative mx-auto h-full max-w-sm overflow-hidden rounded-xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md">
-              <div className="relative aspect-[4/3] w-full overflow-hidden bg-gray-100">
+              <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-100">
                 <img
                   src={
                     watchedValues.imageUrl ||
